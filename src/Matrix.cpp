@@ -4,7 +4,7 @@ Matrix *Matrix::transpose()
 {
     Matrix *m = new Matrix(this->numCols, this->numRows, false);
 
-    for (int i = 0; i < this->numRows; i++)
+    for (int i = 0; i < this->numRows; ++i)
     {
         for (int j = 0; j < this->numCols; j++)
         {
@@ -19,7 +19,7 @@ Matrix *Matrix::copy()
 {
     Matrix *m = new Matrix(this->numRows, this->numCols, false);
 
-    for (int i = 0; i < this->numRows; i++)
+    for (int i = 0; i < this->numRows; ++i)
     {
         for (int j = 0; j < this->numCols; j++)
         {
@@ -35,7 +35,7 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom)
     this->numRows = numRows;
     this->numCols = numCols;
 
-    for (int i = 0; i < numRows; i++)
+    for (int i = 0; i < numRows; ++i)
     {
         vector<double> colValues;
 
@@ -60,7 +60,7 @@ double Matrix::generateRandomNumber()
 
 void Matrix::printToConsole()
 {
-    for (int i = 0; i < this->numRows; i++)
+    for (int i = 0; i < this->numRows; ++i)
     {
         for (int j = 0; j < this->numCols; j++)
         {

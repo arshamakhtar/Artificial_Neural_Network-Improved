@@ -4,6 +4,7 @@
 #define COST_MSE 1
 
 #include <iostream>
+#include <assert.h>
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -37,7 +38,15 @@ class NeuralNetwork{
         void feedForward();
         void backPropgation();
         void setErrors();
+
+        vector<double> getActivatedVals(int index){ return this-> Layers.at(index) -> getActivatedVals();}
+
+        Matrix *getNeuronMatrix(int index) { return this-> Layers.at(index) -> matrixifyVals();}
+        Matrix *getActivatedNeuronMatrix(int index) { return this-> Layers.at(index) -> matrixifyActivatedVals();}
+        Matrix *getDerivedNeuronMatrix(int index) { return this-> Layers.at(index) -> matrixifyDerivedVals();}
+        Matrix* getWeightMatrix(int index){ return new Matrix(*this -> weightMatrices.at(index)); };
         
+        void setNeuronValue(int indexLayer, int indexNeuron, double val){ this-> Layers.at(indexLayer)-> setVal(indexNeuron, val);}
 
         int topologySize;
         int hiddenActivationType    =  RELU;
