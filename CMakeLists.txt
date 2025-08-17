@@ -15,4 +15,5 @@ add_executable(
     src/neural_network/feedForward.cpp
     src/neural_network/NeuralNetwork.cpp
     src/neural_network/setErrors.cpp
+    src/neural_network/backPropogation.cpp
 )
