@@ -1,21 +1,20 @@
-#ifndef _MATH_HPP_
-#define _MATH_HPP_
+#ifndef _MISC_HPP_
+#define _MISC_HPP_
 
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <sstream>
 #include <assert.h>
-#include "../Matrix.hpp"
 
 using namespace std;
 
 namespace utils
 {
-  class Math
+  class Misc
   {
   public:
-    static void multiplyMatrix(Matrix *a, Matrix *b, Matrix *c);
+    static vector< vector<double> > fetchData(string path);
   };
 }
 

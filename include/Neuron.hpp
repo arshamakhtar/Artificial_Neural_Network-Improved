@@ -9,29 +9,30 @@
 #include <math.h>
 using namespace std;
 
-class Neuron{
-    public:
-        Neuron(double val);
-        Neuron(double val, int activationType);
+class Neuron
+{
+public:
+  Neuron(double val);
+  Neuron(double val, int activationType);
 
-        void setVal(double v);
+  void setVal(double v);
 
-        void activate();
+  void activate();
 
-        void derive();
+  void derive();
 
-        //Getter Function
-        double getVal(){ return this-> val; }
-        double getActivatedVal() { return this-> activatedVal; }
-        double getDerivedVal()  { return this-> derivedVal; }
+  // Getter
+  double getVal() { return this->val; }
+  double getActivatedVal() { return this->activatedVal; }
+  double getDerivedVal() { return this->derivedVal; }
 
-    private:
-        double val;
-        double activatedVal;
-        double derivedVal;
+private:
+  double val;
 
-        int activationType = 3;
+  double activatedVal;
+  double derivedVal;
 
+  int activationType = 3;
 };
 
 #endif
