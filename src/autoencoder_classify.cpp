@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
   }
   cout << endl;
 
-  NeuralNetwork *n  = new NeuralNetwork(topology, 2, 3, 1);
+  NeuralNetwork *n  = new NeuralNetwork(config);
   n->loadWeights(weightsFile);
 
   vector< vector<double> > testData = utils::Misc::fetchData(testFile);

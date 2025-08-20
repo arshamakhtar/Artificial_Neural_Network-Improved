@@ -1,0 +1,13 @@
+{
+    "topology": [625, 100, 30, 100, 625],
+    "learningRate": 0.05,
+    "momentum": 1.0,
+    "bias": 1.0,
+    "epoch": 100,
+    "hActivation": 1,
+    "oActivation": 3,
+    "cost": 0,
+    "trainingFile": "data/input.csv",
+    "labelsFile": "data/input.csv",
+    "weightsFile": "weights/autoencoder.json"
+}
