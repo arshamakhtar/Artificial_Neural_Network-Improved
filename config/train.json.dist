@@ -4,7 +4,7 @@
   "momentum": 1.0,
   "bias": 1.0,
   "epoch": 100,
-  "trainingData": "C:\Users\JAI SITARAM\ann\data\1.csv",
-  "labelData": "C:\Users\JAI SITARAM\ann\data\1.csv",
-  "weightsFile": "C:\Users\JAI SITARAM\ann\weights\1.json"
+  "trainingData": "C:\Users\JAI SITARAM\Neural_network\data\1.csv",
+  "labelData": "C:\Users\JAI SITARAM\Neural_network\data\1.csv",
+  "weightsFile": "C:\Users\JAI SITARAM\Neural_network\weights\1.json"
 }

@@ -1,6 +1,6 @@
 {
   "topology": [625, 200, 625],
   "bias": 1.0,
-  "testFile": "C:\Users\JAI SITARAM\ann\data\1.csv",
-  "weightsFile": "C:\Users\JAI SITARAM\ann\weights\magi_character01_25x25.json"
+  "testFile": "C:\Users\JAI SITARAM\Neural_network\data\1.csv",
+  "weightsFile": "C:\Users\JAI SITARAM\Neural_network\weights\magi_character01_25x25.json"
 }

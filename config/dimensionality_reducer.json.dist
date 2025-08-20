@@ -7,7 +7,7 @@
     "hActivation": 1,
     "oActivation": 3,
     "cost": 0,
-    "trainingFile": "data/input.csv",
-    "labelsFile": "data/input.csv",
-    "weightsFile": "weights/autoencoder.json"
+    "trainingFile": "data\input.csv",
+    "labelsFile": "data\input.csv",
+    "weightsFile": "weights\autoencoder.json"
 }
