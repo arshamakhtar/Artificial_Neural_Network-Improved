@@ -41,3 +41,18 @@ add_executable(
     src/neural_network/train.cpp
     src/neural_network/constructor.cpp
 )
+# Autoencoder classifier executable
+add_executable(
+    autoencoder_classify
+    src/autoencoder_classify.cpp
+    src/Neuron.cpp
+    src/Matrix.cpp
+    src/Layer.cpp
+    src/utils/Math.cpp
+    src/utils/Misc.cpp
+    src/neural_network/NeuralNetwork.cpp
+    src/neural_network/setErrors.cpp
+    src/neural_network/feedForward.cpp
+    src/neural_network/constructor.cpp
+    src/neural_network/loadWeights.cpp
+)
