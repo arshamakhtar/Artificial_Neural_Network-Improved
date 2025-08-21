@@ -1,21 +1,24 @@
 #ifndef _MISC_HPP_
 #define _MISC_HPP_
 
-#include <iostream>
+#include <string>
 #include <vector>
-#include <fstream>
-#include <sstream>
-#include <assert.h>
+#include <fstream>      // for std::ifstream
+#include <sstream>      // for std::stringstream
+#include <string>       // for std::string
+#include <cctype>       // for std::isdigit
 
-using namespace std;
 
-namespace utils
-{
-  class Misc
-  {
-  public:
-    static vector< vector<double> > fetchData(string path);
-  };
+using std::ifstream;
+using std::stringstream;
+using std::string;
+using std::vector;
+
+namespace utils {
+    class Misc {
+    public:
+        static std::vector<std::vector<double>> fetchData(std::string path);
+    };
 }
 
 #endif

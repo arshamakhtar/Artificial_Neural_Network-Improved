@@ -47,44 +47,47 @@ ANNConfig buildConfig(json configObject) {
 }
 
 int main(int argc, char **argv) {
-
-  if(argc != 2) {
-    printSyntax();
-    exit(-1);
-  }
-
-  ifstream configFile(argv[1]);
-  string str((std::istreambuf_iterator<char>(configFile)),
-              std::istreambuf_iterator<char>());
-
-  NeuralNetwork *n  = new NeuralNetwork(buildConfig(json::parse(str)));
-
-  vector< vector<double> > trainingData = utils::Misc::fetchData(n->config.trainingFile);
-  vector< vector<double> > labelData    = utils::Misc::fetchData(n->config.labelsFile);
-
-  cout << "Training Data Size: " << trainingData.size() << endl;
-  cout << "Label Data Size: " << labelData.size() << endl;
-
-  for(int i = 0; i < n->config.epoch; i++) {
-    for(int tIndex = 0; tIndex < trainingData.size(); tIndex++) {
-      vector<double> input    = trainingData.at(tIndex);
-      vector<double> target   = labelData.at(tIndex);
-
-      n->train(
-        input,
-        target,
-        n->config.bias,
-        n->config.learningRate,
-        n->config.momentum
-      );
+    if (argc != 2) {
+        printSyntax();
+        return -1;
     }
-    cout << n->error << endl;
 
-    //cout << "Error at epoch " << i+1 << ": " << n->error << endl;
-  }
+    ifstream configFile(argv[1]);
+    if (!configFile.is_open()) {
+       cout << "Failed to open config file: " << argv[1] << endl;
+       return -1;
+    }
 
-  cout << "Done! Writing to " << n->config.weightsFile << "..." << endl;
-  n->saveWeights(n->config.weightsFile);
+    string str((std::istreambuf_iterator<char>(configFile)),
+               std::istreambuf_iterator<char>());
 
-  return 0;
+    NeuralNetwork *n = new NeuralNetwork(buildConfig(json::parse(str)));
+
+    vector<vector<double>> trainingData = utils::Misc::fetchData(n->config.trainingFile);
+    vector<vector<double>> labelData = utils::Misc::fetchData(n->config.labelsFile);
+
+    cout << "Training Data Size: " << trainingData.size() << endl;
+    cout << "Label Data Size: " << labelData.size() << endl;
+
+    if (trainingData.size() != labelData.size()) {
+       cout << "Error: Training and label data sizes do not match!" << endl;
+       delete n;
+       return -1;
+    }
+
+    for (int i = 0; i < n->config.epoch; i++) {
+        for (int tIndex = 0; tIndex < trainingData.size(); tIndex++) {
+            vector<double> input = trainingData.at(tIndex);
+            vector<double> target = labelData.at(tIndex);
+
+            n->train(input, target, n->config.bias, n->config.learningRate, n->config.momentum);
+        }
+        cout << "Epoch " << (i + 1) << " error: " << n->error << endl;
+    }
+
+    cout << "Done! Writing to " << n->config.weightsFile << "..." << endl;
+    n->saveWeights(n->config.weightsFile);
+
+    delete n;
+    return 0;
 }

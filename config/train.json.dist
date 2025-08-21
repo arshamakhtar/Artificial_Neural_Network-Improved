@@ -1,10 +1,13 @@
 {
-  "topology": [625, 100, 30, 100, 625],
+  "topology": [784, 100, 30, 100, 784],
   "learningRate": 0.05,
   "momentum": 1.0,
   "bias": 1.0,
-  "epoch": 100,
-  "trainingData": "C:\Users\JAI SITARAM\Neural_network\data\1.csv",
-  "labelData": "C:\Users\JAI SITARAM\Neural_network\data\1.csv",
-  "weightsFile": "C:\Users\JAI SITARAM\Neural_network\weights\1.json"
+  "epoch": 10,
+  "hActivation": 1,
+  "oActivation": 3,
+  "cost": 1,
+  "trainingFile": "../data/fashion-mnist_label1_20.csv",
+  "labelsFile":   "../data/fashion-mnist_label1_20.csv",
+  "weightsFile":  "../weights/fashion-mnist_train.json"
 }

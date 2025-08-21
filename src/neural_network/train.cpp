@@ -13,8 +13,9 @@ void NeuralNetwork::train(
 
   this->setCurrentInput(input);
   this->setCurrentTarget(target);
-
+  cout<<"This works"<<endl;
   this->feedForward();
+  cout<<"Hello"<<endl;
   this->setErrors();
   this->backPropagation();
 }

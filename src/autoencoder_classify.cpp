@@ -1,9 +1,8 @@
-#include <vector>
-#include <stdio.h>
+#include <iostream>
 #include <fstream>
-#include <streambuf>
-#include <ostream>
-#include <time.h>
+#include <vector>
+#include <string>
+#include <iterator>
 #include "../include/json.hpp"
 #include "../include/NeuralNetwork.hpp"
 #include "../include/utils/Misc.hpp"
@@ -12,50 +11,75 @@ using namespace std;
 using json = nlohmann::json;
 
 void printSyntax() {
-  cout << "Syntax:" << endl;
-  cout << "autoencoder_classify [configFile]" << endl;
+    cout << "Syntax:" << endl;
+    cout << "autoencoder_classify [configFile]" << endl;
+}
+
+ANNConfig buildConfig(json configObject) {
+    ANNConfig config;
+
+    double learningRate = configObject["learningRate"];
+    double momentum = configObject["momentum"];
+    double bias = configObject["bias"];
+    int epoch = configObject["epoch"];
+    string trainingFile = configObject["trainingFile"];
+    string labelsFile = configObject["labelsFile"];
+    string weightsFile = configObject["weightsFile"];
+    vector<int> topology = configObject["topology"];
+
+    ANN_ACTIVATION hActivation = configObject["hActivation"];
+    ANN_ACTIVATION oActivation = configObject["oActivation"];
+
+    config.topology = topology;
+    config.bias = bias;
+    config.learningRate = learningRate;
+    config.momentum = momentum;
+    config.epoch = epoch;
+    config.hActivation = hActivation;
+    config.oActivation = oActivation;
+    config.trainingFile = trainingFile;
+    config.labelsFile = labelsFile;
+    config.weightsFile = weightsFile;
+
+    return config;
 }
 
 int main(int argc, char **argv) {
+    if(argc != 2) {
+        printSyntax();
+        exit(-1);
+    }
 
-  if(argc != 2) {
-    printSyntax();
-    exit(-1);
-  }
-
-  ifstream configFile(argv[1]);
-  string str((std::istreambuf_iterator<char>(configFile)),
+    ifstream configFile(argv[1]);
+    string str((std::istreambuf_iterator<char>(configFile)),
               std::istreambuf_iterator<char>());
 
-  auto config = json::parse(str);
+    // Parse JSON and build ANNConfig
+    json configJson = json::parse(str);
+    ANNConfig config = buildConfig(configJson);
 
-  double bias           = config["bias"];
-  string weightsFile    = config["weightsFile"];
-  string testFile       = config["testFile"]; 
+    cout << "Topology: " << endl;
+    for(int i = 0; i < config.topology.size(); i++) {
+        cout << config.topology.at(i) << "\t";
+    }
+    cout << endl;
 
-  vector<int> topology  = config["topology"];
+    // Create neural network with proper ANNConfig
+    NeuralNetwork *n = new NeuralNetwork(config);
+    n->loadWeights(config.weightsFile);
 
-  cout << "Topology: " << endl;
-  for(int i = 0; i < topology.size(); i++) {
-    cout << topology.at(i) << "\t";
-  }
-  cout << endl;
+    vector<vector<double>> testData = utils::Misc::fetchData(config.trainingFile);
 
-  NeuralNetwork *n  = new NeuralNetwork(config);
-  n->loadWeights(weightsFile);
+    for(int i = 0; i < testData.size(); i++) {
+        n->setCurrentInput(testData.at(i));
+        n->setCurrentTarget(testData.at(i));
+        n->feedForward();
+        n->setErrors();
 
-  vector< vector<double> > testData = utils::Misc::fetchData(testFile);
+        double error = n->error;
+        cout << error << endl;
+    }
 
-  for(int i = 0; i < testData.size(); i++) {
-    n->setCurrentInput(testData.at(i));
-    n->setCurrentTarget(testData.at(i));
-    n->feedForward();
-    n->setErrors();
-
-    double error = n->error;
-    //cout << "Error for datapoint " << i << ": " << error << endl;
-    cout << error << endl;
-  }
-
-  return 0;
+    delete n;
+    return 0;
 }
